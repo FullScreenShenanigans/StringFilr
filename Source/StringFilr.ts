@@ -83,6 +83,13 @@ class StringFilr {
     }
 
     /**
+     * @return {Mixed} A cached value, if it exists/
+     */
+    getCached(key: string): any {
+        return this.cache[key];
+    }
+
+    /**
      * Completely clears the cache Object.  
      */
     clearCache(): void {
@@ -105,14 +112,17 @@ class StringFilr {
     /**
      * Retrieves the deepest matching data in the library for a key. 
      * 
-     * @param {String} key
+     * @param {String} keyRaw
      * @return {Mixed}
      */
-    get(key: string): any {
-        var result: any;
+    get(keyRaw: string): any {
+        var key: string,
+            result: any;
 
         if (this.normal) {
-            key = key.replace(this.normal, "");
+            key = keyRaw.replace(this.normal, "");
+        } else {
+            key = keyRaw;
         }
 
         // Quickly return a cached result if it exists
@@ -123,7 +133,7 @@ class StringFilr {
         // Since no existed, it must be found deep within the library
         result = this.followClass(key.split(/\s+/g), this.library);
 
-        this.cache[key] = result;
+        this.cache[key] = this.cache[keyRaw] = result;
         return result;
     }
 

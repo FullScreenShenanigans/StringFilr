@@ -56,3 +56,38 @@ describe("constructor", function () {
         chai.expect(StringFiler.getCache()).to.be.deep.equal({});
     });
 });
+
+describe("get", function () {
+    it("gets values", function () {
+        chai.expect(StringFiler.get("my major")).to.be.equal("Computer Science");
+    });
+
+    it("gets values out of order", function () {
+        chai.expect(StringFiler.get("Mariah's eye color")).to.be.equal("brown");
+    });
+
+    it("gets values using normal", function () {
+        chai.expect(StringFiler.get("Brandon's hair")).to.be.equal("black");
+    });
+});
+
+describe("cache", function () {
+    it("stores values", function () {
+        chai.expect(StringFiler.getCached("my major")).to.be.equal("Computer Science");
+        chai.expect(StringFiler.getCache()).to.be.deep.equal({
+            "my major": "Computer Science",
+            "Mariah's eye ": "brown",
+            "Mariah's eye color": "brown",
+            "Brandon's hair": "black"
+        });
+    });
+
+    it("doesn't store unused values", function () {
+        chai.expect(StringFiler.getCached("ooga booga")).to.be.undefined;
+    });
+
+    it("clears on demand", function () {
+        StringFiler.clearCached("my major");
+        chai.expect(StringFiler.getCached("my major")).to.be.undefined;
+    });
+});
