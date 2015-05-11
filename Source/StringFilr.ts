@@ -16,7 +16,7 @@ class StringFilr {
     // The library of data.
     private library: any;
 
-    // Listing of previously found lookups, for speed"s sake.
+    // Listing of previously found lookups, for speed's sake.
     private cache: any;
 
     // Optional default class to use when no suitable option is found.
@@ -33,8 +33,8 @@ class StringFilr {
      *                           of sub-Objects.
      * @param {String} [normal]   A String to use as a default key to recurse 
      *                            on. Defaults to undefined, so falsy.
-     * @param {Boolean} [requireNormalKey]   Whether it"s ok for the library to 
-     *                                   have Objects that don"t contain the
+     * @param {Boolean} [requireNormalKey]   Whether it's ok for the library to 
+     *                                   have Objects that don't contain the
      *                                   normal key. Defaults to false.
      */
     constructor(settings: IStringFilrSettings) {
@@ -122,14 +122,14 @@ class StringFilr {
 
     /**
      * Utility helper to recursively check for tree branches in the library 
-     * that don"t have a key equal to the normal. For each sub-directory that
+     * that don't have a key equal to the normal. For each sub-directory that
      * is caught, the path to it is added to output.
      * 
      * @param {Object} current   The current location being searched within
      *                           the library.
      * @param {String} path   The current path within the library.
      * @param {String[]} output   An Array of the String paths to parts that
-     *                           don"t have a matching key.
+     *                           don't have a matching key.
      * @return {String[]} output
      */
     findLackingNormal(current: any, path: string, output: string[]): string[] {
@@ -165,7 +165,7 @@ class StringFilr {
         var key: string,
             i: number;
 
-        // If keys runs out, we"re done
+        // If keys runs out, we're done
         if (!keys || !keys.length) {
             return current;
         }
@@ -186,7 +186,7 @@ class StringFilr {
             return this.followClass(keys, current[this.normal]);
         }
 
-        // Nothing matches anything; we"re done.
+        // Nothing matches anything; we're done.
         return current;
     }
 
@@ -195,7 +195,7 @@ class StringFilr {
 
         if (caught.length) {
             throw new Error("Found " + caught.length + " library "
-                + "sub-directories missing the normal: "
+                + 'sub-directories missing the normal: "
                 + "\r\n  " + caught.join("\r\n  "));
         }
     }
