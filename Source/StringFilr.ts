@@ -110,8 +110,8 @@ class StringFilr {
 
         // Quickly return a cached result if it exists
         if (this.cache.hasOwnProperty(key)) {
-            return this.cache[key]
-        };
+            return this.cache[key];
+        }
 
         // Since no existed, it must be found deep within the library
         result = this.followClass(key.split(/\s+/g), this.library);
@@ -141,7 +141,9 @@ class StringFilr {
 
         if (typeof current[i] === "object") {
             for (i in current) {
-                this.findLackingNormal(current[i], path + " " + i, output);
+                if (current.hasOwnProperty(i)) {
+                    this.findLackingNormal(current[i], path + " " + i, output);
+                }
             }
         }
 
@@ -162,7 +164,7 @@ class StringFilr {
     private followClass(keys: string[], current: any): any {
         var key: string,
             i: number;
-        
+
         // If keys runs out, we"re done
         if (!keys || !keys.length) {
             return current;
@@ -171,7 +173,7 @@ class StringFilr {
         // For each key in the current array...
         for (i = 0; i < keys.length; i += 1) {
             key = keys[i];
-            
+
             // ...if it matches, recurse on the other keys
             if (current.hasOwnProperty(key)) {
                 keys.splice(i, 1);
@@ -183,7 +185,7 @@ class StringFilr {
         if (this.normal && current.hasOwnProperty(this.normal)) {
             return this.followClass(keys, current[this.normal]);
         }
-        
+
         // Nothing matches anything; we"re done.
         return current;
     }
