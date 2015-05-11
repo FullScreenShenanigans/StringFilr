@@ -1,6 +1,12 @@
 interface IStringFilrSettings {
+    // An Object containing data stored as children of sub-Objects.
     library: any;
+
+    // A String to use as a default key to rescue on, if provided.
     normal?: string;
+
+    // Whether it's ok for the library to have Objects that don't contain the
+    // normal key (by default, false).
     requireNormalKey?: boolean;
 }
 
@@ -29,13 +35,7 @@ class StringFilr {
      * Resets the StringFilr.
      * 
      * @constructor
-     * @param {Object} library   An Object containing data stored as children
-     *                           of sub-Objects.
-     * @param {String} [normal]   A String to use as a default key to recurse 
-     *                            on. Defaults to undefined, so falsy.
-     * @param {Boolean} [requireNormalKey]   Whether it's ok for the library to 
-     *                                   have Objects that don't contain the
-     *                                   normal key. Defaults to false.
+     * @param {IStringFilrSettings} settings
      */
     constructor(settings: IStringFilrSettings) {
         if (!settings) {
@@ -66,6 +66,13 @@ class StringFilr {
      */
     getLibrary(): any {
         return this.library;
+    }
+
+    /**
+     * @return {String} The optional normal class String.
+     */
+    getNormal(): string {
+        return this.normal;
     }
 
     /**
@@ -195,7 +202,7 @@ class StringFilr {
 
         if (caught.length) {
             throw new Error("Found " + caught.length + " library "
-                + 'sub-directories missing the normal: "
+                + "sub-directories missing the normal: "
                 + "\r\n  " + caught.join("\r\n  "));
         }
     }
