@@ -1,4 +1,8 @@
+// @ifdef INCLUDE_DEFINITIONS
 /// <reference path="StringFilr.d.ts" />
+// @endif
+
+// @include ../Source/StringFilr.d.ts
 
 module StringFilr {
     "use strict";
@@ -8,8 +12,6 @@ module StringFilr {
      * names. You can think of the internal "library" Object as a tree structure,
      * such that you can pass in a listing (in any order) of the path to data for 
      * retrieval.
-     * 
-     * @author "Josh Goldberg" <josh@fullscreenmario.com>
      */
     export class StringFilr implements IStringFilr {
         // The library of data.
@@ -25,9 +27,6 @@ module StringFilr {
         private requireNormalKey: boolean;
 
         /**
-         * Resets the StringFilr.
-         * 
-         * @constructor
          * @param {IStringFilrSettings} settings
          */
         constructor(settings: IStringFilrSettings) {
